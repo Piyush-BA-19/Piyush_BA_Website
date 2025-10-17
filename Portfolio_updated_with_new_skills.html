@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Piyush Gambhir — Portfolio</title>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root{
+      --bg-1: #0b0b0c;
+      --bg-2: #1b1b1d;
+      --card: rgba(255,255,255,0.03);
+      --muted: rgba(255,255,255,0.55);
+      --accent: rgba(255,255,255,0.06);
+      --glass: rgba(255,255,255,0.04);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background: #000;color:#fff}
+    
+    /* Top Navigation Bar */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: linear-gradient(180deg, rgba(11,11,12,0.95), rgba(27,27,29,0.9));
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 16px 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    
+    /* Add padding to body to account for fixed nav */
+    body {
+      padding-top: 80px;
+    }
+    
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+    
+    .nav-links {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    
+    .nav-btn {
+      padding: 12px 24px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.02);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+      min-width: 120px;
+    }
+    
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.15);
+      transform: translateY(-2px);
+    }
+    
+    .nav-btn.active {
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.08));
+      border-color: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+    
+    /* Main Container */
+    .container{max-width:1100px;margin:40px auto 0;padding:0 28px}
+
+    /* Hero Section */
+    .hero-section {
+      text-align: center;
+      padding: 60px 0;
+      background: linear-gradient(135deg, #000, #333);
+      border-radius: 20px;
+      margin-bottom: 40px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    
+    .hero-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #333, #111);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 36px;
+      color: rgba(255,255,255,0.9);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+      margin: 0 auto 24px;
+      overflow: hidden;
+      background-image: url('https://i.postimg.cc/tCh89Gr4/my-image.jpg');
+      background-size: cover;
+      background-position: center top;
+      background-repeat: no-repeat;
+      position: relative;
+    }
+    
+    .hero-avatar span {
+      display: none;
+    }
+    
+    .hero-avatar::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.1) 100%);
+      border-radius: 20px;
+    }
+    
+    .hero-avatar:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.1) 100%);
+      border-radius: 20px;
+    }
+    
+    .hero-avatar-fallback {
+      display: none;
+    }
+    
+    /* Show fallback text if image doesn't load */
+    .hero-avatar:after {
+      content: 'PG';
+      display: none;
+    }
+    
+    .hero-title {
+      font-size: 48px;
+      font-weight: 800;
+      margin: 0 0 12px 0;
+      background: linear-gradient(135deg, #fff, #ccc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero-subtitle {
+      font-size: 20px;
+      color: var(--muted);
+      margin: 0 0 24px 0;
+      font-weight: 500;
+    }
+    
+    .hero-tags {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    
+    .hero-tag {
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.03);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* Card */
+    .card{background: linear-gradient(135deg, #000, #333);
+          border:1px solid rgba(255,255,255,0.04);
+          border-radius:16px;padding:28px;margin-bottom:20px;backdrop-filter:blur(6px)}
+
+    h1{margin:0;font-size:28px}
+    h2{margin:8px 0 0;font-weight:600;color:#e6e6e6}
+    .sub{color:var(--muted);font-size:14px;margin-top:6px}
+
+    .layout{display:grid;grid-template-columns:1fr 360px;gap:24px;margin-top:20px}
+
+    /* Left column content */
+    .section{margin-bottom:18px}
+    .section h3{margin:0 0 12px 0;font-size:16px}
+    p{color:var(--muted);line-height:1.6}
+
+    .skills{display:flex;gap:8px;flex-wrap:wrap}
+    .skill{background: linear-gradient(135deg, #000, #333);padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);font-weight:600}
+
+    .timeline{display:flex;flex-direction:column;gap:12px}
+    .timeline .item{padding:12px;border-radius:12px;background: linear-gradient(135deg, #000, #333);border:1px solid rgba(255,255,255,0.02)}
+    .meta{font-size:13px;color:var(--muted)}
+
+    /* Right column */
+    aside{position:relative}
+    .contact-card{position:sticky;top:28px}
+    .contact-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .label{font-size:13px;color:var(--muted)}
+    .value{font-weight:600}
+
+    footer{opacity:0.7;text-align:center;margin-top:18px;color:var(--muted);font-size:13px}
+
+    /* Section anchors */
+    .section-anchor{
+      scroll-margin-top: 100px;
+    }
+
+    /* small utilities */
+    .btn{display:inline-block;padding:10px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);text-decoration:none;font-weight:700}
+    .muted{color:var(--muted)}
+    .download{background:rgba(255,255,255,0.02)}
+
+    /* subtle animation */
+    .hero-avatar, .card{transition:transform .25s ease,box-shadow .25s ease}
+    .card:hover{transform:translateY(-6px)}
+    .hero-avatar:hover{transform:translateY(-8px);box-shadow: 0 20px 60px rgba(0,0,0,0.8)}
+
+    /* Responsive */
+    @media (max-width:960px){
+      .layout{grid-template-columns:1fr;}
+      .contact-card{position:relative}
+      .hero-avatar{width:100px;height:100px;font-size:28px}
+      .hero-title{font-size:36px}
+      .hero-subtitle{font-size:18px}
+      .nav-links{justify-content:flex-start;overflow-x:auto;padding:0 0 8px 0}
+      .nav-btn{min-width:auto;font-size:13px;padding:8px 16px}
+      body{padding-top:70px}
+    }
+
+  
+.dropdown {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 8px;
+  min-width: 180px;
+  backdrop-filter: blur(20px);
+}
+.dropdown-item {
+  display: block;
+  padding: 10px 16px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.dropdown-item:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.15);
+}
+
+
+.back-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.back-btn:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.15);
+  transform: translateY(-2px);
+}
+
+</style>
+<style>
+/* Fade-up animation */
+.fade-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Smooth section transition */
+.page {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.page.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+<style>
+/* Advanced Animations */
+
+/* Fade-up with scale */
+.fade-advanced {
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: opacity 1s cubic-bezier(0.19, 1, 0.22, 1), 
+              transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.fade-advanced.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Slide from left */
+.slide-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: all 1s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.slide-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slide from right */
+.slide-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: all 1s cubic-bezier(0.77, 0, 0.175, 1);
+}
+.slide-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Parallax effect */
+.parallax {
+  transform: translateY(60px);
+  opacity: 0;
+  transition: transform 1.2s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.2s ease;
+}
+.parallax.visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Scale-up */
+.scale-up {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.8s ease-in-out;
+}
+.scale-up.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+</style>
+</head>
+<body>
+<!-- Top Navigation -->
+<div class="top-nav">
+<div class="nav-container">
+<div class="nav-links">
+<a class="nav-btn active" href="#profile">Profile</a>
+<a class="nav-btn" href="#experience">Experience</a>
+<div class="nav-item" style="position:relative;">
+<a class="nav-btn" href="#" onclick="event.preventDefault();toggleDropdown()">Projects</a>
+<div class="dropdown" id="projects-dropdown" style="display:none;position:absolute;top:100%;left:0;background:rgba(0,0,0,0.95);border-radius:8px;padding:8px;min-width:160px;z-index:2000;"><a class="dropdown-item" href="#" onclick="showPage('excel-page')">Excel Projects</a><a class="dropdown-item" href="#" onclick="showPage('powerbi-page')">Power BI Projects</a><a class="dropdown-item" href="#" onclick="showPage('python-page')">Python Projects</a></div>
+</div>
+<a class="nav-btn" href="#skills-certs">Skills &amp; Certs</a>
+<a class="nav-btn" href="#education">Education</a>
+<a class="nav-btn" href="#contact">Contact</a>
+</div>
+</div>
+</div>
+<div class="page active" id="main-page">
+<div class="container">
+<!-- Hero Section -->
+<div class="hero-section section-anchor" id="profile">
+<div class="hero-avatar">
+<span style="display: none;">PG</span>
+</div>
+<h1 class="hero-title">Piyush Gambhir</h1>
+<p class="hero-subtitle">Aspiring Business Analyst</p>
+<div class="hero-tags">
+<div class="hero-tag">Delhi, India</div>
+<div class="hero-tag">BBA Graduate</div>
+<div class="hero-tag">Open to Business &amp; Analyst Roles</div>
+</div>
+</div>
+<!-- Summary Card -->
+<div class="card">
+<section class="section">
+<h3>Summary</h3>
+<p>Welcome! I am BBA graduate with a strong foundation in business principles, strategic thinking, and data-driven problem-solving. Passionate about translating complex data into actionable insights and optimizing business processes. Bridging the gap between business needs and technological solutions. Proficient in business analysis techniques, data analysis, requirements elicitation, and project coordination and documentation. Seeking an opportunity to leverage analytical abilities and contribute to data-backed decisions that drive organizational growth and efficiency.</p>
+</section>
+</div>
+<div class="layout">
+<main>
+<section class="section section-anchor" id="experience">
+<h3>Experience</h3>
+<div class="timeline">
+<div class="item">
+<div style="display:flex;justify-content:space-between;align-items:start">
+<div>
+<div style="font-weight:700">EaseToLearn — B2B - Client Relationship Executive Intern</div>
+<div class="meta">July 2025 - Present — Delhi, On-Site</div>
+</div>
+</div>
+<ul class="muted" style="list-style: circle; padding-left: 20px;">
+<li>Conducted on-site workshop with clients to deliver comprehensive product demonstrations, explain app functionality, oversee implementation processes, and provide hands-on training to business clients.</li>
+<li>Served as primary point of contact for client inquiries, providing timely resolution and technical support by communicating with IT department to ensure seamless user experience.</li>
+<li>Maintained direct communication with the Chief Operating Officer through daily status reports and updates on client interactions, challenges, and opportunities.</li>
+<li>Managed and maintained detailed client databases in Excel, tracking engagement metrics and generating usability reports for data analysis and to inform product development and client success strategies.</li>
+</ul>
+</div>
+<div class="item"><div style="display:flex;justify-content:space-between;align-items:start"><div><div style="font-weight:700">Grievance Cell Committee Head — Sirifort Institute of Management Studies</div><div class="meta">July 2024 - June 2025 (1 year)</div></div></div><ul class="muted" style="list-style: circle; padding-left: 20px;"><li>As the Grievances Committee Head for the BBA Department, I addressed and resolved academic, administrative, and personal issues faced by students.</li><li>Acted as a liaison between students and higher management and facilitated open communication to implement improvements based on student needs.</li></ul></div><div class="item"><div style="display:flex;justify-content:space-between;align-items:start"><div><div style="font-weight:700">Data Analyst Intern — Growth Ninja</div><div class="meta">June 2024 - July 2024 (2 months) — Remote</div></div></div><ul class="muted" style="list-style: circle; padding-left: 20px;"><li>Performed Data manipulation and visualization using Advanced Excel.</li><li>EDA, Data cleaning and grouping by Python Pandas.</li></ul></div></div>
+</section>
+<section class="section section-anchor" id="skills-certs">
+<h3>Top Skills</h3><h4>Business Analysis Skills</h4><div class="skills"><div class="skill">Requirements engineering</div><div class="skill">BRD/FRD</div><div class="skill">RTM</div><div class="skill">Business Process Flowcharts</div><div class="skill">Agile, Waterfall and RUP basics</div><div class="skill">Stakeholder Management</div><div class="skill">Wireframing</div><div class="skill">BPMN and UML Diagrams</div><div class="skill">Jira</div><div class="skill">Microsoft Visio</div></div><h4 style="margin-top:18px">Data Analysis Skills</h4><div class="skills"><div class="skill">Advanced Excel</div><div class="skill">SQL</div><div class="skill">Power BI</div><div class="skill">Python (Pandas)</div><div class="skill">Dashboarding</div></div>
+<h3 style="margin-top:28px">Certifications</h3>
+<ul class="muted">
+<li>ChatGPT For Business Analyst - <a href="https://drive.google.com/file/d/1E8yPs2pbtBXUOfbS_LddWFEF78h-vDhi/view?usp=drivesdk" style="color:#fff;text-decoration:underline" target="_blank">Certificate Link</a></li>
+<li>Complete Data Analyst Bootcamp - <a href="https://drive.google.com/file/d/1bGq1MbgCswK5_76f--ZWXWRCRr52bQzu/view?usp=drivesdk" style="color:#fff;text-decoration:underline" target="_blank">Certificate Link</a></li>
+<li>Complete Python Course - <a href="https://drive.google.com/file/d/1EKFNfgUX29cjgK4JiRVoUtzI52RSq7fi/view?usp=drivesdk" style="color:#fff;text-decoration:underline" target="_blank">Certificate Link</a></li>
+</ul>
+<h3 style="margin-top:28px">Education</h3>
+<div class="timeline section-anchor" id="education">
+<div class="item">
+<div style="font-weight:700">Delhi University (DU)</div>
+<div style="font-weight:600;margin-top:4px">Shaheed Sukhdev College of Business Studies</div>
+<div style="font-weight:600;margin-top:4px">Course — Business Analytics</div>
+<div class="meta">July 2025 - December 2025</div>
+</div>
+<div class="item">
+<div style="font-weight:700">GuruGobind Singh Indraprastha University (GGSIPU)</div>
+<div style="font-weight:600;margin-top:4px">Sirifort Institute of Management Studies — Bachelor of Business Administration (BBA)</div>
+<div class="meta">September 2022 - July 2025</div>
+<p class="muted">Major: Business Administration and Management - 7.5 CGPA</p>
+</div>
+<div class="item">
+<div style="font-weight:700">Central Board of Secondary Education — Higher Secondary</div>
+<div style="font-weight:600;margin-top:4px">Commerce with Information Practices - 84%</div>
+<div class="meta">2020-2022</div>
+</div>
+</div>
+</section>
+</main>
+<aside>
+<div class="contact-card card contact-card section-anchor" id="contact">
+<h3 style="margin-top:0">Contact</h3>
+<div class="contact-row"><div class="label">📞 Phone</div><div class="value">8700484152</div></div>
+<div class="contact-row"><div class="label">Email</div><div class="value"><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=piyushgambhir1910@gmail.com" style="color:inherit;text-decoration:underline;" target="_blank">piyushgambhir1910@gmail.com</a></div></div>
+<div class="contact-row"><div class="label">LinkedIn</div><div class="value"><a href="https://www.linkedin.com/in/piyush-gambhir-596220281" style="color:inherit;text-decoration:underline" target="_blank">Piyush Gambhir</a></div></div>
+<div style="height:10px"></div>
+<a class="btn download" href="#" onclick="downloadResume()">Download Resume (PDF)</a>
+<div style="height:14px"></div>
+<h3 style="margin-bottom:8px">Quick Facts</h3>
+<div class="muted">Location</div>
+<div style="font-weight:700;margin-bottom:8px">Delhi, India</div>
+<div class="muted">Availability</div>
+<div style="font-weight:700;margin-bottom:8px">Open to internships &amp; entry roles</div>
+</div>
+</aside>
+</div>
+</div>
+</div>
+<script>
+  function downloadResume(){
+    const pdfUrl = 'https://drive.google.com/file/d/1avWuLcYRMWt7tGMnwc7wdxdjjuSvEYXk/view?usp=sharing';
+    window.open(pdfUrl, '_blank');
+  }
+</script>
+<div class="page" id="powerbi-page" style="display:none;">
+<div class="container">
+<a class="back-btn" href="#" onclick="showPage('main-page')">Back to Profile</a>
+<h1 class="project-page-title">Power BI Projects</h1>
+<p class="muted">This section showcases my Power BI project, highlighting advanced dashboard creation, data modeling, and business intelligence insights.</p>
+<section class="section section-anchor" id="projects">
+<h3>Projects</h3>
+<div class="timeline">
+<div class="item">
+<div style="display:flex;justify-content:space-between;align-items:start">
+<div>
+<div style="font-weight:700;font-size:18px;color:#fff;margin-bottom:8px">Power BI</div>
+<div style="font-weight:700">Electric Vehicle Analysis Using Power BI</div>
+<div class="meta">Data Visualization • Dashboard Development • Business Intelligence</div>
+</div>
+</div>
+<div style="margin:16px 0"><img alt="Power BI Dashboard Screenshot" src="https://i.postimg.cc/G2qfm8fQ/ev-imag.png" style="max-width:100%;border-radius:10px;margin-bottom:20px;max-width:60%;display:block;margin:20px auto;;max-width:60%;display:block;margin:12px auto 20px;border-radius:10px;max-width:60%;display:block;margin:12px auto 20px;border-radius:10px"/>
+<div style="margin-bottom:12px">
+<a href="https://1drv.ms/i/c/d81b47f02d66935d/EbjXpfORbOZCkuUPLwYlsF4BiWdYNaMTlxnq0It7jLUwSQ" style="color:#fff;text-decoration:underline;font-weight:600;" target="_blank">View Dashboard Screenshot</a>
+</div>
+<div style="font-weight:600;margin-bottom:8px">Problem Statement &amp; KPIs:</div>
+<p class="muted" style="margin-bottom:8px">Comprehensive analysis of electric vehicle landscape encompassing both BEVs and PHEVs to assess market size, growth, and adoption trends.</p>
+<ul class="muted" style="font-size:13px;margin:0">
+<li><strong>Total Vehicles:</strong> 150.42K electric vehicles analyzed</li>
+<li><strong>Average Electric Range:</strong> 67.83 miles across all EVs</li>
+<li><strong>BEV Analysis:</strong> 117K vehicles (78% of total market)</li>
+<li><strong>PHEV Analysis:</strong> 34K vehicles (22% of total market)</li>
+</ul>
+</div>
+<div style="margin-bottom:12px">
+<div style="font-weight:600;margin-bottom:8px">Dashboard Features:</div>
+<ul class="muted" style="font-size:13px;margin:0">
+<li><strong>Interactive Filters:</strong> State selection, Electric Utility, and Vehicle Type filters</li>
+<li><strong>Temporal Analysis:</strong> Line chart showing EV adoption from 2011-2023 with peak at 37K in 2022</li>
+<li><strong>Geographic Distribution:</strong> Map chart revealing concentration in California, Florida, Texas, and Washington</li>
+<li><strong>Market Leaders:</strong> Tesla dominates with 69K vehicles (5× next competitor)</li>
+<li><strong>CAFV Eligibility:</strong> 46.33% eligible for Clean Alternative Fuel Vehicle incentives</li>
+</ul>
+</div>
+<div style="margin-bottom:12px">
+<div style="font-weight:600;margin-bottom:8px">Key Insights:</div>
+<ul class="muted" style="font-size:13px;margin:0">
+<li>BEVs show clear dominance (78%) indicating strong shift toward fully electric mobility</li>
+<li>Tesla Model Y and Model 3 lead consumer preferences in the treemap analysis</li>
+<li>Sharp growth acceleration from 2018 onward reflects increased consumer trust and policy support</li>
+<li>Incentive programs significantly impact adoption with nearly half of vehicles CAFV eligible</li>
+</ul>
+</div>
+<div style="margin-bottom:8px">
+<div style="font-weight:600;margin-bottom:8px">Technical Implementation:</div>
+<ul class="muted" style="font-size:13px;margin:0">
+<li>Advanced Power BI visualizations: Line charts, Map charts, Bar charts, Donut charts, Treemap</li>
+<li>Interactive filtering and drill-down capabilities</li>
+<li>KPI cards and performance metrics</li>
+<li>Data preprocessing and analysis for 150K+ vehicle records</li>
+</ul>
+</div>
+</div>
+<div class="item">
+<div style="display:flex;justify-content:space-between;align-items:start">
+<div>
+<div style="font-weight:700;font-size:18px;color:#fff;margin-bottom:8px">Power BI</div>
+<div style="font-weight:700">Credit Card Transaction Analysis Dashboard</div>
+<div class="meta">Data Visualization • Dashboard Development • Business Intelligence</div>
+</div>
+</div>
+<div style="margin:16px 0">
+<img alt="Credit Card Dashboard Screenshot" src="https://i.postimg.cc/hG1W2kWt/Whats-App-Image-2025-09-18-at-7-01-22-PM.jpg" style="max-width:100%;border-radius:10px;margin:12px auto 20px;display:block;max-width:60%;"/>
+<div style="font-weight:600;margin-bottom:8px">Problem Statement &amp; KPIs:</div>
+<p class="muted" style="margin-bottom:8px">To analyze credit card transactions effectively and provide insights into spending behavior, transaction value, and spending categories to support decision-making, cost control, and customer behavior understanding.</p>
+<ul class="muted" style="font-size:13px;margin:0">
+<li><strong>Total Spend:</strong> $73.69M</li>
+<li><strong>Total Transactions:</strong> 1M</li>
+<li><strong>Average Transaction Value:</strong> $70.28</li>
+<li><strong>Shop Online:</strong> $28.12M (38.16%)</li>
+<li><strong>Personal Care:</strong> $17.68M (24%)</li>
+<li><strong>Home:</strong> $14.83M (20.13%)</li>
+<li><strong>Entertainment:</strong> $13.05M (17.71%)</li>
+<li><strong>Monthly Spending Trend:</strong> Jan–Dec analysis via bar chart</li>
+</ul>
+</div>
+<div style="margin-bottom:12px">
+<div style="font-weight:600;margin-bottom:8px">Dashboard Features:</div>
+<ul class="muted" style="font-size:13px;margin:0">
+<li>Interactive side navigation panel (Dashboard, Payments, Statistics, Cards)</li>
+<li>Search functionality at the top-right</li>
+<li>Credit Card visualization with customer name &amp; masked card number</li>
+<li>Summary cards showing key metrics (Total Spend, Total Transactions, ATV)</li>
+<li>Pie/Donut Chart for spend by category</li>
+<li>Bar Chart showing monthly spending trends</li>
+<li>Color-coded UI for categories (Shopping, Personal Care, Home, Entertainment)</li>
+</ul>
+</div>
+<div style="margin-bottom:12px">
+<div style="font-weight:600;margin-bottom:8px">Key Insights:</div>
+<ul class="muted" style="font-size:13px;margin:0">
+<li>Online Shopping dominates spending with 38.16% ($28.12M)</li>
+<li>Personal Care ranks second at 24% ($17.68M)</li>
+<li>Entertainment spend is lowest but still significant at $13.05M</li>
+<li>Average transaction value of $70.28 indicates moderate purchases per swipe</li>
+<li>January and December peak near $10M – seasonal/holiday effect</li>
+<li>Overall spending trend suggests festive-driven expenditures</li>
+</ul>
+</div>
+<div style="margin-bottom:8px">
+<div style="font-weight:600;margin-bottom:8px">Technical Implementation:</div>
+<ul class="muted" style="font-size:13px;margin:0">
+<li>Data Source: Credit card transaction dataset (transaction amount, category, date, customer info)</li>
+<li>Data Processing: Aggregations, grouping by category and month</li>
+<li>Visualization Tools: Donut chart, Bar chart, KPI cards</li>
+<li>Technology Stack: SQL/Python (ETL), Power BI for dashboarding</li>
+</ul>
+</div>
+</div>
+</div>
+</section></div>
+</div>
+<div class="page" id="python-page" style="display:none;">
+<div class="container">
+<a class="back-btn" href="#" onclick="showPage('main-page')">Back to Profile</a>
+<h1 class="project-page-title">Python Projects</h1>
+<div class="timeline">
+<div class="item">
+<div style="display:flex;justify-content:space-between;align-items:start">
+<div>
+<div style="font-weight:700;font-size:18px;color:#fff;margin-bottom:8px">Python</div>
+<div style="font-weight:700">Business Analysis -  E-Commerce Sales Data Analysis Project</div>
+<div class="meta">Exploratory Data Analysis • Data Visualization • Python</div>
+</div>
+</div>
+<div style="margin:16px 0"><div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;border-radius:10px;margin:12px auto 20px;"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/7MmDClvfK9c?si=0_-I1azMpOQASkC-" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:10px;"></iframe></div>
+<div style="font-weight:600;margin-bottom:8px">Project Overview:</div>
+<p class="muted" style="margin-bottom:8px">Performed Exploratory Data Analysis (EDA) on an e-commerce dataset to uncover key sales trends, customer behaviours, and revenue drivers. Data was analyzed using Python, and visualized in Matplotlib for business insights. For more information refer to this link: <a href="https://colab.research.google.com/drive/1OpxTf06wPHBaguR0oxroGWv8vnKI7BiU?usp=sharing" style="color:#00bfff; font-weight:700; text-decoration:underline;" target="_blank">Colab Notebook</a></p></div>
+<div style="margin-top:20px">
+<h2>E-Commerce Data Analysis - Key Insights Report</h2>
+<h3>📊 Executive Summary</h3>
+<p class="muted">This comprehensive analysis of e-commerce data reveals critical business insights across product performance, geographic distribution, customer segments, delivery operations, and seasonal patterns.</p>
+<hr/>
+<h3>🎯 Problem Statement 1: Top-Selling Product Categories and Subcategories</h3>
+<ul class="muted">
+<li><strong>Category Performance</strong>: Technology and Office Supplies dominate sales, indicating strong B2B and professional market presence</li>
+<li><strong>Subcategory Leaders</strong>: Phones, Chairs, and Storage products are the highest revenue generators</li>
+<li><strong>Market Concentration</strong>: Top 3 categories likely account for 60-70% of total sales (Pareto principle)</li>
+<li><strong>Product Strategy</strong>: Focus inventory investment on top-performing subcategories while evaluating underperformers</li>
+</ul>
+<p><strong>Business Recommendations:</strong> Increase marketing spend on high-performing categories, optimize inventory, and consider bundling complementary products.</p>
+<hr/>
+<h3>🌍 Problem Statement 2: Countries and Customer Segments with Highest Sales</h3>
+<ul class="muted">
+<li><strong>Market Leaders</strong>: United States likely dominates sales, followed by major European markets</li>
+<li><strong>Growth Opportunities</strong>: Identify secondary markets with growth potential</li>
+<li><strong>Corporate Dominance</strong>: Consumer segment typically leads in sales volume</li>
+<li><strong>B2B Potential</strong>: Corporate and Home Office segments show strong revenue per transaction</li>
+</ul>
+<p><strong>Business Recommendations:</strong> Develop country-specific campaigns, targeted promotions for each segment, and expand presence in high-performing regions.</p>
+<hr/>
+<h3>🚚 Problem Statement 3: Average Delivery Time Impact on Orders</h3>
+<ul class="muted">
+<li><strong>Current Performance</strong>: Avg delivery ~15–20 days</li>
+<li><strong>Customer Impact</strong>: Moderate negative correlation with sales</li>
+<li><strong>Operational Efficiency</strong>: Falls in "Good" range but improvable</li>
+</ul>
+<p><strong>Business Recommendations:</strong> Invest in logistics, implement express delivery, and monitor delivery as a key satisfaction metric.</p>
+<hr/>
+<h3>📈 Problem Statement 4: Seasonal Trends in Sales</h3>
+<ul class="muted">
+<li><strong>Peak Season</strong>: Nov–Dec (holiday surge)</li>
+<li><strong>Secondary Peak</strong>: Aug–Sep (back-to-school)</li>
+<li><strong>Low Season</strong>: Jan–Feb (post-holiday decline)</li>
+</ul>
+<p><strong>Business Recommendations:</strong> Scale inventory &amp; marketing for Q4, plan off-season promotions, and create back-to-school campaigns.</p>
+<hr/>
+<h3>🎯 Strategic Action Items</h3>
+<p><strong>Immediate:</strong> Stock top subcategories, negotiate delivery, prep Q4.<br/>
+<strong>Medium-term:</strong> Expand to new countries, tailored campaigns, KPI dashboards.<br/>
+<strong>Long-term:</strong> Invest in supply chain, predictive analytics, diversify products.</p>
+<hr/>
+<h3>📊 Success Metrics</h3>
+<ul class="muted">
+<li>Sales growth by category &amp; region</li>
+<li>Customer acquisition cost &amp; AOV trends</li>
+<li>Delivery time reduction &amp; satisfaction scores</li>
+<li>Market share &amp; seasonal performance vs benchmarks</li>
+</ul>
+<hr/>
+<h3>💡 Conclusion</h3>
+<p class="muted">The analysis shows a healthy, diversified business with strong opportunities. Focus on delivery, seasonal planning, and expansion will drive growth. Strong tech &amp; office supplies sales + balanced customer segments give a solid foundation.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+
+function toggleDropdown(){
+  var dd = document.getElementById('projects-dropdown');
+  dd.style.display = (dd.style.display === 'none' || dd.style.display === '') ? 'block' : 'none';
+}
+
+function showPage(pageId){
+  document.querySelectorAll('.page').forEach(p=>{
+    p.style.display = 'none';
+    p.classList.remove('active');
+  });
+  document.getElementById(pageId).style.display = 'block';
+  document.getElementById(pageId).classList.add('active');
+  window.scrollTo(0,0);
+  document.getElementById('projects-dropdown').style.display = 'none';
+}
+</script>
+<div class="page" id="excel-page" style="display:none;">
+<div class="container">
+<a class="back-btn" href="#" onclick="showPage('main-page')">Back to Profile</a>
+<h1 class="project-page-title">Excel Projects</h1>
+<div class="timeline">
+<div class="item">
+<div style="display:flex;justify-content:space-between;align-items:start">
+<div>
+<div style="font-weight:700;font-size:18px;color:#fff;margin-bottom:8px">Excel</div>
+<div style="font-weight:700">Road Accident Analysis Dashboard in Excel (2023–2024)</div>
+<div class="meta">Data Visualization • Dashboard Development • Excel</div>
+</div>
+</div><div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;border-radius:10px;margin:12px auto 20px;"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/Z9VBnT9OxF4?si=zhCdbeui9ura8r_K" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:10px;"></iframe></div>
+<div style="margin:16px 0">
+<div style="font-weight:600;margin-bottom:8px">Objective:</div>
+<p class="muted">Create an interactive and comprehensive Excel dashboard to analyze road accident data for 2023 and 2024, enabling stakeholders to identify trends, severity levels, vehicle types, and other related factors for better decision-making.</p>
+<div style="font-weight:600;margin-bottom:8px">Primary KPIs:</div>
+<ul class="muted" style="font-size:13px;margin:0">
+<li>Total Casualties</li>
+<li>Casualties by Severity (Fatal, Serious, Slight)</li>
+<li>Casualties by Vehicle Type (Car, Truck, Bus, Two-Wheeler, Tractor, Others)</li>
+</ul>
+<div style="font-weight:600;margin-top:12px;margin-bottom:8px">Secondary KPIs:</div>
+<ul class="muted" style="font-size:13px;margin:0">
+<li>Casualties by Road Type</li>
+<li>Monthly Trend Comparison (2023 vs 2024)</li>
+<li>Casualties by Road Surface Condition</li>
+<li>Casualties by Location (Urban vs Rural)</li>
+<li>Casualties by Light Condition (Day vs Night)</li>
+</ul>
+<div style="font-weight:600;margin-top:12px;margin-bottom:8px">Dashboard Components:</div>
+<ul class="muted" style="font-size:13px;margin:0">
+<li>KPI Cards showing Total Casualties, severity breakdown, and % by car</li>
+<li>Line Chart for yearly comparison</li>
+<li>Bar Chart for casualties by road type</li>
+<li>Treemap for road surface conditions</li>
+<li>Pie Charts for location and light conditions</li>
+<li>Icons for casualties by vehicle type</li>
+</ul>
+<div style="font-weight:600;margin-top:12px;margin-bottom:8px">Tools Used:</div>
+<p class="muted">Microsoft Excel — Pivot Tables, Slicers, Conditional Formatting, Charts (Line, Bar, Pie, Treemap), Interactive Dashboards with Dropdowns.</p>
+<div style="font-weight:600;margin-top:12px;margin-bottom:8px">Conclusion:</div>
+<p class="muted">The dashboard provides a clear view of accident patterns, severity hotspots, and risky conditions. Interactive filters allow multi-dimensional analysis to support safety improvements and preventive measures.</p>
+</div>
+<div class="item">
+<div style="display:flex;justify-content:space-between;align-items:start">
+<div>
+<div style="font-weight:700;font-size:18px;color:#fff;margin-bottom:8px">Excel</div>
+<div style="font-weight:700">McDonald's Sales Dashboard — South America 2022</div>
+<div class="meta">Sales Analysis • Data Visualization • Excel Dashboard</div>
+</div>
+</div>
+<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;max-width:100%;border-radius:10px;margin:12px auto 20px;"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/ZbLTToaC5c4?si=viuAyfcjo32w3bou" style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:10px;"></iframe></div>
+<div style="margin:16px 0">
+<div style="font-weight:600;margin-bottom:8px">Problem Statements:</div>
+<ul class="muted" style="font-size:13px;margin:0">
+<li>What are the total sales, profit, and customer percentage for McDonald’s in South America in 2022?</li>
+<li>How do monthly sales trends in 2021 compare to 2022?</li>
+<li>Which countries in South America contribute most to total sales?</li>
+<li>What is the customer satisfaction breakdown by key service factors?</li>
+<li>Which areas of customer experience require the most improvement?</li>
+</ul>
+</div>
+<div style="margin-bottom:12px">
+<div style="font-weight:600;margin-bottom:8px">Key Insights:</div>
+<ul class="muted" style="font-size:13px;margin:0">
+<li><strong>Sales Performance:</strong> $2,544 million total sales with an 85% achievement rate vs. target.</li>
+<li><strong>Profitability:</strong> $890 million profit with an 89% achievement rate, indicating strong operational efficiency.</li>
+<li><strong>Customer Base:</strong> 87% of targeted customers reached.</li>
+<li><strong>Geographic Trends:</strong> Highest sales concentrated in specific South American countries (deep blue regions on the map).</li>
+<li><strong>Customer Satisfaction:</strong> Availability (95%) and Hygiene (93%) are strongest; Service (53%) and Speed (54%) require improvement.</li>
+<li><strong>Year-over-Year Trends:</strong> 2022 shows recovery and upward momentum after mid-year dip.</li>
+</ul>
+</div>
+<div style="margin-bottom:12px">
+<div style="font-weight:600;margin-bottom:8px">Dashboard Components:</div>
+<ul class="muted" style="font-size:13px;margin:0">
+<li>KPI Cards for Sales, Profit, and % Customers reached.</li>
+<li>Gauge/Donut charts showing target vs. achieved for each KPI.</li>
+<li>Line chart comparing 2021–2022 sales trends.</li>
+<li>Bar chart of customer satisfaction metrics by factor.</li>
+<li>Map visualization of sales by country.</li>
+<li>Interactive navigation sidebar with quick links.</li>
+</ul>
+</div>
+<div style="margin-bottom:8px">
+<div style="font-weight:600;margin-bottom:8px">Technical Skills Applied:</div>
+<ul class="muted" style="font-size:13px;margin:0">
+<li>Data visualization using KPI cards, gauge charts, line charts, bar charts, and maps.</li>
+<li>Excel functions for KPI calculations (SUM, AVERAGE, % formulas).</li>
+<li>Consistent chart formatting and visual hierarchy.</li>
+<li>Map chart integration for geospatial sales data.</li>
+<li>Interactive dashboard design with navigation buttons.</li>
+<li>Data cleaning and preparation for accurate reporting.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+// Scroll animation observer
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.section, .card, .timeline .item, .hero-section').forEach(el => {
+  el.classList.add('fade-up');
+  observer.observe(el);
+});
+
+// Override showPage for smooth animation
+function showPage(pageId){
+  document.querySelectorAll('.page').forEach(p=>{
+    p.style.display = 'none';
+    p.classList.remove('active');
+  });
+  const activePage = document.getElementById(pageId);
+  activePage.style.display = 'block';
+  setTimeout(()=> activePage.classList.add('active'), 50);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  document.getElementById('projects-dropdown').style.display = 'none';
+}
+</script>
+<script>
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  if (btn.textContent.trim() !== 'Projects') {
+    btn.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId.startsWith('#')) {
+        e.preventDefault();
+        document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  }
+});
+</script>
+<script>
+// Advanced Intersection Observer for animations
+const advObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.2 });
+
+// Apply advanced animations in staggered way
+document.querySelectorAll('.hero-section').forEach(el => {
+  el.classList.add('fade-advanced');
+  advObserver.observe(el);
+});
+document.querySelectorAll('.card').forEach(el => {
+  el.classList.add('slide-left');
+  advObserver.observe(el);
+});
+document.querySelectorAll('.timeline .item').forEach((el, i) => {
+  el.classList.add(i % 2 === 0 ? 'slide-right' : 'slide-left');
+  advObserver.observe(el);
+});
+document.querySelectorAll('aside, footer').forEach(el => {
+  el.classList.add('parallax');
+  advObserver.observe(el);
+});
+document.querySelectorAll('.skill').forEach(el => {
+  el.classList.add('scale-up');
+  advObserver.observe(el);
+});
+</script>
+<script>
+function retriggerAnimations(sectionId) {
+  const section = document.querySelector(sectionId);
+  if(section){
+    section.querySelectorAll('.fade-up, .fade-advanced, .slide-left, .slide-right, .parallax, .scale-up').forEach(el => {
+      el.classList.remove('visible');
+      void el.offsetWidth; // force reflow
+      el.classList.add('visible');
+    });
+  }
+}
+
+// Enhance existing nav-btn smooth scroll with retrigger
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  if (btn.textContent.trim() !== 'Projects') {
+    btn.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId.startsWith('#')) {
+        e.preventDefault();
+        document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => retriggerAnimations(targetId), 600);
+      }
+    });
+  }
+});
+</script>
+</body>
+</html>
